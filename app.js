@@ -20,7 +20,7 @@ const https = require('https'); // ??
 */
 
 function getDefinition(word) {
- //try {   
+ try {   
     const request = https.get(`https://dictionaryapi.com/api/v3/references/learners/json/${word}?key=691cd460-cce1-442a-a65a-f5c4ad6025c3`, (res) => {
         //if(res.statuscode == 200) { }
         let body = "";// store data in a variable and concat the data until the stream is complete
@@ -39,11 +39,16 @@ function getDefinition(word) {
         });
 
         res.on('error', (err)=> {
-            console.err(err.messsage);
-        }); // response errorr
-    })
-}    
+            console.error(err.messsage);
+        }); // end of response or parse error
 
+    }) // end of response body
 
+    } catch(err) {
+        console.error(err.message);
+    } // end of fetching data/api error
 
-getDefinition('test');
+} // end of function 
+
+const query = process.argv.slice(2);
+query.forEach(getDefinition);
