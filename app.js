@@ -1,19 +1,8 @@
 //1. connect to api
 const https = require('https'); // ??
-//const http = require('http');
-
-// - [ ]  print the data
-/* function printDefinition(username, badgeCount, points) {
-    const message = `${username} has ${badgeCount} total badge(s) and ${points} points in JavaScript`;
-    console.log(message);
-}  */
-
-/* function printError(error) {
-    console.error(error.message);
-} */
 
 /* 
-
+Gets defintions of words in learners dictionary
 @param {buffer} - data
 @param {json string} - body
 @param {json object} - def
