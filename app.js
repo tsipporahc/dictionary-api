@@ -12,21 +12,38 @@ const https = require('https'); // ??
     console.error(error.message);
 } */
 
-function getDictionary() {
+/* 
+
+@param {buffer} - data
+@param {json string} - body
+@param {json object} - def
+*/
+
+function getDefinition(word) {
  //try {   
-    const request = https.get(`https://dictionaryapi.com/api/v3/references/learners/json/test?key=691cd460-cce1-442a-a65a-f5c4ad6025c3`, (res) => {
-        //if(res.statuscode == 200) {
+    const request = https.get(`https://dictionaryapi.com/api/v3/references/learners/json/${word}?key=691cd460-cce1-442a-a65a-f5c4ad6025c3`, (res) => {
+        //if(res.statuscode == 200) { }
         let body = "";// store data in a variable and concat the data until the stream is complete
         //console.dir(res); // returns response object
         res.on("data", (data) => { // listens for stream of data and returns a buffer
             //console.dir(data); //returns a buffer
-            body += data.toString(); // convert buffer into a 
-            console.dir(body);
-        })
-        //}
+            body += data.toString(); // convert buffer into a string
+            //console.dir(body);
+        });
+        
+        res.on('end', ()=> {
+            let def = JSON.parse(body);
+            //console.dir(dictionary); // returns json object in the form of an array
+            console.dir(def[0].shortdef);
+            //printDefinition();
+        });
+
+        res.on('error', (err)=> {
+            console.err(err.messsage);
+        }); // response errorr
     })
 }    
 
 
 
-getDictionary();
+getDefinition('test');
